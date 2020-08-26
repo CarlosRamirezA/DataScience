@@ -5,9 +5,12 @@ Created on Fri Aug 14 17:25:39 2020
 
 @author: carlos
 """
+
+import numpy as np
+
+
+
 # Eliminación hacia atrás utilizando solamente p-valores:
-
-
 import statsmodels.formula.api as sm
 def backwardElimination(x, sl):    
     numVars = len(x[0])    
@@ -22,7 +25,6 @@ def backwardElimination(x, sl):
     return x 
 
 # Eliminación hacia atrás utilizando  p-valores y el valor de  R Cuadrado Ajustado:
-
 import statsmodels.formula.api as sm
 def backwardEliminationr(x, SL):    
     numVars = len(x[0])    
