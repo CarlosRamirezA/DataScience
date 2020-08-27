@@ -60,7 +60,7 @@ plt.show()
 
 # Prediccion de nuestros modelos  
 
- 
+lin_reg_2.predict(poly_reg.fit_transform(x))
 
 
 

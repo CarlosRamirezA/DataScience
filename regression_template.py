@@ -30,8 +30,7 @@ x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.2, random
 
 
 # Prediccion de nuestros modelos  
-
-predict()
+y_pred = regression.predict()
 
 
 
@@ -39,8 +38,8 @@ predict()
 x_grid = np.arange(min(x), max(x), 0.1)
 x_grid = x_grid.reshape(len(x_grid),1)
 plt.scatter(x, y, color = "red")
-plt.plot(x_grid, predict(x_grid)), color = "blue")
-plt.title("Modelo de Regresion Polinomica")
+plt.plot(x_grid, predict(x_grid, regression.predict(x_grid))), color = "blue")
+plt.title("Modelo de Regresion")
 plt.xlabel("Posicion del empleado")
 plt.ylabel("Sueldo (en $)")
 plt.show()
