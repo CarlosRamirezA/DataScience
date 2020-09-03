@@ -17,13 +17,16 @@ dataset = pd.read_csv('Position_Salaries.csv')
 x = dataset.iloc[:,1:2].values
 y = dataset.iloc[:, 2].values 
 
-"""
+""" 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.2, random_state = 0)
 """
 
 
 # Ajustar random forest con el dataset
+from sklearn.ensemble import RandomForestRegressor
+regression = RandomForestRegressor(n_estimators = 10, random_state = 0)
+regression.fit(x,y)
 
 
 
@@ -37,7 +40,7 @@ y_pred = regression.predict()
 x_grid = np.arange(min(x), max(x), 0.1)
 x_grid = x_grid.reshape(len(x_grid),1)
 plt.scatter(x, y, color = "red")
-plt.plot(x_grid, predict(x_grid, regression.predict(x_grid)), color = "blue")
+plt.plot(x_grid, regression.predict(x_grid), color = "blue")
 plt.title("Modelo de Regresion con Random Forest")
 plt.xlabel("Posicion del empleado")
 plt.ylabel("Sueldo (en $)")
