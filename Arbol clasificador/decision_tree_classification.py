@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Sep  3 17:59:49 2020
+Created on Fri Sep 18 17:22:57 2020
 
 @author: carlos
 """
 
 
-# Plantilla de Clasificacion
+# Arbol clasificador
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,21 +23,18 @@ from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.25, random_state = 0)
 
 
-# Escalado de variables
-from sklearn.preprocessing import StandardScaler
-sc_x = StandardScaler()
-x_train  = sc_x.fit_transform(x_train)
-x_test = sc_x.fit_transform(x_test)
-
 
 # Ajustar el clasificador con el conjunto de Entrenamiento
-# Crear el modelo de clasificacion aqui 
-
-
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = "entropy", random_state = 0)
+classifier.fit(x_train, y_train)
+ 
 
 
 # Prediccion de los resultados con el conjunto de Testing
 y_pred = classifier.predict(x_test)
+
+
 
 # Elaborar una matriz de confusion
 from sklearn.metrics import confusion_matrix
@@ -49,8 +46,8 @@ cm = confusion_matrix(y_test, y_pred)
 # Representacion grafica de los resultados del algoritmo en el conjunto de entrenamiento
 from matplotlib.colors import ListedColormap
 x_set, y_set = x_train, y_train
-x1, x2 = np.meshgrid(np.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step = 0.01),
-                     np.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 0.01))
+x1, x2 = np.meshgrid(np.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step = 1),
+                     np.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 500))
 plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
 plt.xlim(x1.min(), x1.max())
@@ -58,7 +55,7 @@ plt.ylim(x1.min(), x2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)    
-plt.title('Classifier (Conjunto de Entrenamiento)')
+plt.title('Arbol de desicion (Conjunto de Entrenamiento)')
 plt.xlabel('Edad')
 plt.ylabel('Salario estimado')
 plt.legend()
@@ -67,8 +64,8 @@ plt.show()
 # Representacion grafica de los resultados del algoritmo en el conjunto de testing
 from matplotlib.colors import ListedColormap
 x_set, y_set = x_test, y_test
-x1, x2 = np.meshgrid(np.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step = 0.01),
-                     np.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 0.01))
+x1, x2 = np.meshgrid(np.arange(start = x_set[:, 0].min() - 1, stop = x_set[:, 0].max() + 1, step = 1),
+                     np.arange(start = x_set[:, 1].min() - 1, stop = x_set[:, 1].max() + 1, step = 500))
 plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
 plt.xlim(x1.min(), x1.max())
@@ -76,7 +73,7 @@ plt.ylim(x1.min(), x2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)    
-plt.title('Classifier (Conjunto de test)')
+plt.title('Arbol de desicion (Conjunto de test)')
 plt.xlabel('Edad')
 plt.ylabel('Salario estimado')
 plt.legend()
