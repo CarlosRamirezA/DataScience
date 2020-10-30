@@ -48,7 +48,6 @@ cm = confusion_matrix(y_test, y_pred)
 
 
 
-
 # Representacion grafica de los resultados del algoritmo en el conjunto de entrenamiento
 from matplotlib.colors import ListedColormap
 x_set, y_set = x_train, y_train
